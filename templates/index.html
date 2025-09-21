@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>To-Do App</title>
+  <!-- Tailwind CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="min-h-screen bg-gray-100 flex items-center justify-center p-4">
+  <div class="w-full max-w-lg bg-white rounded-2xl shadow-lg p-6">
+    
+    <!-- Header -->
+    <h1 class="text-3xl font-bold text-center text-indigo-600 mb-6">
+      My To-Do List
+    </h1>
+
+    <!-- Form -->
+    <form method="POST" class="flex gap-2 mb-6">
+      <input 
+        type="text" 
+        name="content" 
+        placeholder="Add a new task..."
+        class="flex-1 px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-400"
+        required
+      >
+      <button 
+        type="submit"
+        class="bg-indigo-500 text-white px-4 py-2 rounded-lg hover:bg-indigo-600 transition"
+      >
+        Add
+      </button>
+    </form>
+
+    <!-- Task List -->
+    {% if tasks %}
+      <ul class="space-y-3">
+        {% for task in tasks %}
+          <li class="flex items-center justify-between bg-gray-50 p-3 rounded-lg shadow-sm">
+            <span class="text-gray-700">{{ task.content }}</span>
+            <a 
+              href="{{ url_for('delete', id=task.id) }}" 
+              class="text-red-500 hover:text-red-700 font-medium"
+            >
+              Delete
+            </a>
+          </li>
+        {% endfor %}
+      </ul>
+    {% else %}
+      <p class="text-gray-500 text-center">No tasks yet. Add one above!</p>
+    {% endif %}
+  </div>
+</body>
+</html>
